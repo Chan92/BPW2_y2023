@@ -6,7 +6,22 @@ public class Manager : MonoBehaviour {
 	public static Manager instance;
 
 	public enum GameState {
-		//turns, win, lose, pause
+		Start, 
+		Play, 
+		Paused, 
+		Win, 
+		Lose
+	}
+	public enum GameTurn {
+		Player,
+		Enemy
+	}
+
+	public GameState gameState;
+	public GameTurn gameTurn;
+
+	public Vector3 StartRoomCenter {
+		get;set;
 	}
 
 	private void Awake() {

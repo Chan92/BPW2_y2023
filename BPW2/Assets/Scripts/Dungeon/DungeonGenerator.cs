@@ -44,6 +44,8 @@ public class DungeonGenerator : MonoBehaviour {
 				}
 			}
 		}
+
+		Manager.instance.StartRoomCenter = allRooms[0].GetCenter();
 	}
 
 	private void GenerateHalls() {
