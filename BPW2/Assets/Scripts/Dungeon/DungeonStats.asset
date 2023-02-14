@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9500afcb17312904aa9fed46f9462e0f, type: 3}
+  m_Name: DungeonStats
+  m_EditorClassIdentifier: 
+  mapWidth: 100
+  mapHeight: 100
+  TileSize: 1
+  minRoomSize: 8
+  maxRoomSize: 22
+  minRoomAmount: 8
+  maxRoomAmount: 13
+  groundPrefab: {fileID: 2451781329666905331, guid: 904de904c832619499915fc0690ca8c3, type: 3}
+  wallPrefab: {fileID: 8734469666552202545, guid: f17ade7469e5b9a4d81e2b70cd5a7d70, type: 3}
+  hallWallPrefab: {fileID: 3517825185705266420, guid: ee3dc8d9734540f4a96ea0266ded85a1, type: 3}
