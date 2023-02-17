@@ -11,14 +11,6 @@ public class CharacterController:MonoBehaviour {
 
 	private void Start() {
 		movementBlockade = LayerMask.GetMask("Wall") << LayerMask.GetMask("Obstacle") << LayerMask.GetMask("Enemy");
-		SpawnPlayer();
-	}
-
-	private void SpawnPlayer() {
-		Vector3 position = Manager.instance.StartRoomCenter;
-		position.y += 0.5f;
-
-		transform.position = position;
 	}
 
 	private void Update() {

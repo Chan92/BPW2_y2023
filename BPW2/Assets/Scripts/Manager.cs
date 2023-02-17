@@ -20,10 +20,6 @@ public class Manager : MonoBehaviour {
 	public GameState gameState;
 	public GameTurn gameTurn;
 
-	public Vector3 StartRoomCenter {
-		get;set;
-	}
-
 	private void Awake() {
 		instance = this;
 	}

@@ -18,4 +18,13 @@ public class Room {
 
 		return new Vector3Int(posX, 0, posZ);
 	}
+
+	//Get any position exclude the tiles touching the wall
+	//This helps to prevent objects from blocking the hallways
+	public Vector3Int GetRandomPosition() {
+		int posX = Mathf.RoundToInt(Random.Range(minX +1, maxX));
+		int posZ = Mathf.RoundToInt(Random.Range(minZ +1, maxZ));
+
+		return new Vector3Int(posX, 0, posZ);
+	}
 }
