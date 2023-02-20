@@ -14,7 +14,8 @@ public class Manager : MonoBehaviour {
 	}
 	public enum GameTurn {
 		Player,
-		Enemy
+		Enemy,
+		OutOfCombat
 	}
 
 	public GameState gameState;
