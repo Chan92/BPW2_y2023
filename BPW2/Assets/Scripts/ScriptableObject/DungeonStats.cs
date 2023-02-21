@@ -15,4 +15,13 @@ public class DungeonStats : ScriptableObject {
 	public GameObject groundPrefab;
 	public GameObject wallPrefab;
 	public GameObject hallWallPrefab;
+
+	[Header("Room Statics")]
+	public int minEnemies = 1;
+	public int maxEnemies = 5;
+	public int chanceEnemyLeader = 30;
+
+	[Space(10)]
+	public int minObjects = 0;
+	public int maxObjects = 3;
 }

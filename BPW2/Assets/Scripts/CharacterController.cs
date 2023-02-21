@@ -15,9 +15,11 @@ public class CharacterController:MonoBehaviour {
 
 	private void Update() {
 		if(Manager.instance.gameTurn == Manager.GameTurn.Player) {
-			//InBattleMovement();
-			OutBattleMovement();
+			InBattleMovement();
 			Attack();
+			Heal();
+		} else if(Manager.instance.gameTurn == Manager.GameTurn.OutOfCombat) {
+			OutBattleMovement();
 			Heal();
 		}
 	}
@@ -27,10 +29,12 @@ public class CharacterController:MonoBehaviour {
 
 		if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S)) {
 			direction = Vector3.forward * Input.GetAxisRaw("Vertical");
+			Manager.instance.ChangeTurn();
 		} else if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)) {
 			direction = -Vector3.left * Input.GetAxisRaw("Horizontal");
+			Manager.instance.ChangeTurn();
 		}
-
+		
 		Movement(direction);
 	}
 
@@ -54,8 +58,10 @@ public class CharacterController:MonoBehaviour {
 
 
 	private void Attack() {
+		//Manager.instance.ChangeTurn();
 	}
 
 	private void Heal() {
+		//Manager.instance.ChangeTurn();
 	}
 }

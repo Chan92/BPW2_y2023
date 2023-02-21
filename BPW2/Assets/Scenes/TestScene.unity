@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
-  gameTurn: 0
+  gameTurn: 2
 --- !u!4 &322518980 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2696042147223785716, guid: 31763bae6c610f140a917b1d1d3790bd, type: 3}
