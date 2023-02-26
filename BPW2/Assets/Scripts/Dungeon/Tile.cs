@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Tile
-{
+public class Tile {
 	public TileType tileType;
 	public Vector3Int tilePosition;
 	public int roomId;
 
+	//negative room number for tiles that arent part of a room (e.g.: halls)
 	public Tile(Vector3Int _tilePosition, TileType _tileType) {
 		tilePosition = _tilePosition;
 		tileType = _tileType;
@@ -26,8 +26,7 @@ public class Tile
 	}
 }
 
-public enum TileType
-{
+public enum TileType {
 	Ground,
 	Wall
 }

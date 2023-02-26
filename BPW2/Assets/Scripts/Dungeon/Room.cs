@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Room {
 	public int minX, maxX, minZ, maxZ;
+	public int roomSize;
+	public bool visited = false;
 
 	public Room(int _minX, int _maxX, int _minZ, int _maxZ) {
 		minX = _minX;
 		maxX = _maxX;
 		minZ = _minZ;
 		maxZ = _maxZ;
+
+		roomSize = (maxX - minX) * (maxZ - minZ);
 	}
 
 	public Vector3Int GetCenter() {
