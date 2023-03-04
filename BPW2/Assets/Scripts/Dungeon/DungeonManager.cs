@@ -68,24 +68,20 @@ public class DungeonManager : MonoBehaviour {
 			if(roomId >= 0 && !dgnGen.allRooms[roomId].visited) {
 				SpawnEnemies(roomId);
 				dgnGen.allRooms[roomId].visited = true;
-				RaiseHallWalls();
+				ToggleHallWalls(false);
 			}
 		}
 	}
 
-	public void RaiseHallWalls() {
+	public void ToggleHallWalls(bool lowerWalls) {
 		for(int i = 0; i < dgnGen.allHallWalls.Count; i++) {
 			Vector3 pos = dgnGen.allHallWalls[i].position;
-			pos.y = 0;
 
-			dgnGen.allHallWalls[i].position = pos;
-		}
-	}
-
-	public void LowerHallWalls() {
-		for(int i = 0; i < dgnGen.allHallWalls.Count; i++) {
-			Vector3 pos = dgnGen.allHallWalls[i].position;
-			pos.y = -1;
+			if(lowerWalls) {
+				pos.y = -1;
+			} else {
+				pos.y = 0;
+			}
 
 			dgnGen.allHallWalls[i].position = pos;
 		}

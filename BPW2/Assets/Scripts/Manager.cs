@@ -43,6 +43,7 @@ public class Manager : MonoBehaviour {
 			case GameTurn.Player:
 				if(enemyManager.AliveCounter() > 0) {
 					gameTurn = GameTurn.Enemy;
+					enemyManager.EnemyAction();
 				} else {
 					gameTurn = GameTurn.OutOfCombat;
 				}
@@ -51,6 +52,7 @@ public class Manager : MonoBehaviour {
 				if(enemyManager.AliveCounter() > 0) {
 					if(enemyTurnCounter < enemyMaxTurns) {
 						enemyTurnCounter++;
+						enemyManager.EnemyAction();
 					} else {
 						enemyTurnCounter = 0;
 						gameTurn = GameTurn.Player;

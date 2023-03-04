@@ -23,16 +23,16 @@ public class EnemyManager : MonoBehaviour {
 	[SerializeField]
 	private int spawnChanceTypeB = 35;
 
+	[SerializeField]
+	private float actionDelay = 0.4f;
+
 	private void Start() {
 		CreateEnemyPool(poolSize);
 	}
 
-	private void Update() {
-		//	DEBUGGING PURPOSE, REMOVE LATER		
-		if(Input.GetButtonDown("Jump") && Manager.instance.gameTurn == Manager.GameTurn.Enemy) {
-			int random = Random.Range(0, spawnedEnemies.Count);
-			spawnedEnemies[random].GetComponent<EnemyController>().GetAction();
-			Manager.instance.ChangeTurn();
+	public void EnemyAction() {
+		if(Manager.instance.gameTurn == Manager.GameTurn.Enemy) {
+			StartCoroutine(ActionDelay());
 		}
 	}
 
@@ -84,4 +84,10 @@ public class EnemyManager : MonoBehaviour {
 		AliveCounter();
 	}
 
+	private IEnumerator ActionDelay() {
+		yield return new WaitForSeconds(actionDelay);
+		int random = Random.Range(0, spawnedEnemies.Count);
+		spawnedEnemies[random].GetComponent<EnemyController>().GetAction();
+		Manager.instance.ChangeTurn();
+	}
 }

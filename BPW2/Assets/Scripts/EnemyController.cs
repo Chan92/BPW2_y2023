@@ -8,19 +8,30 @@ public class EnemyController : MonoBehaviour {
 	private Transform player;
 	private LayerMask movementBlockade;
 
+	[SerializeField]
+	private int attackRange = 1;
+
 	private void Start() {
 		movementBlockade = LayerMask.GetMask("Wall") << LayerMask.GetMask("Obstacle") << LayerMask.GetMask("Enemy") << LayerMask.GetMask("Player");
 		player = Transform.FindObjectOfType<CharacterController>().transform;
 	}	
 
 	public void GetAction() {
-		if(Manager.instance.gameTurn == Manager.GameTurn.Enemy) {
-			//if in attack range
-			//Attack();
-			//else
+		if(InAttackRange()) {
+			Attack();
+		} else {
 			Movement();
+		}
 
-			Manager.instance.enemyTurnCounter++;
+		Manager.instance.enemyTurnCounter++;
+	}
+
+	private bool InAttackRange() {
+		float distance = Vector3.Distance(transform.position, player.position);
+		if(distance <= attackRange) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -42,5 +53,6 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	private void Attack() {
-	}
+		print("ATTACK");
+	}	
 }
