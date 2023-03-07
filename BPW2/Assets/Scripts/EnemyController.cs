@@ -5,30 +5,42 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
 	[SerializeField]
 	private DungeonStats dungeonStats;
+	[SerializeField]
+	private AttackStats[] attacks;
+	
 	private Transform player;
-	private LayerMask movementBlockade;
 
 	[SerializeField]
-	private int attackRange = 1;
+	private LayerMask movementBlockade;
+	[SerializeField]
+	private LayerMask attackTargetLayer;
+
+	[SerializeField]
+	private float distanceOffset = 0.5f;
+
 
 	private void Start() {
-		movementBlockade = LayerMask.GetMask("Wall") << LayerMask.GetMask("Obstacle") << LayerMask.GetMask("Enemy") << LayerMask.GetMask("Player");
 		player = Transform.FindObjectOfType<CharacterController>().transform;
 	}	
 
 	public void GetAction() {
-		if(InAttackRange()) {
-			Attack();
+		//choose a random attack from the avaible attacks
+		int randomAttackType = Random.Range(0, attacks.Length);
+
+		if(InAttackRange(randomAttackType)) {
+			Attack(randomAttackType);
 		} else {
 			Movement();
 		}
 
-		Manager.instance.enemyTurnCounter++;
+		Manager.instance.ChangeTurn();
 	}
 
-	private bool InAttackRange() {
+	//checks if the attack can hit the target
+	//TODO: fix attack patern check instead of only distance check
+	private bool InAttackRange(int attackType) {
 		float distance = Vector3.Distance(transform.position, player.position);
-		if(distance <= attackRange) {
+		if(distance - distanceOffset <= attacks[attackType].attackRange) {
 			return true;
 		} else {
 			return false;
@@ -52,7 +64,7 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
-	private void Attack() {
-		print("ATTACK");
+	private void Attack(int attackType) {
+		attacks[attackType].Attack(transform.position, attackTargetLayer);
 	}	
 }

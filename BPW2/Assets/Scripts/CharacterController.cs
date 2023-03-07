@@ -6,12 +6,17 @@ public class CharacterController:MonoBehaviour {
 	[SerializeField]
 	private DungeonStats dungeonStats;
 
+	[SerializeField]
 	private LayerMask movementBlockade;
-	private int prevRoomId = -1;
+	
+	[SerializeField]
+	private LayerMask attackTargetLayer;
 
-	private void Start() {
-		movementBlockade = LayerMask.GetMask("Wall") << LayerMask.GetMask("Obstacle") << LayerMask.GetMask("Enemy");
-	}
+	[SerializeField]
+	float movementCooldown = 0.2f;
+	float movementTimer;
+
+	public AttackStats[] attacks;
 
 	private void Update() {
 		if(Manager.instance.gameTurn == Manager.GameTurn.Player) {
@@ -19,8 +24,7 @@ public class CharacterController:MonoBehaviour {
 			Attack();
 			Heal();
 		} else if(Manager.instance.gameTurn == Manager.GameTurn.OutOfCombat) {
-			InBattleMovement();
-			//OutBattleMovement();
+			OutBattleMovement();
 			Heal();
 		}
 
@@ -61,9 +65,19 @@ public class CharacterController:MonoBehaviour {
 		Vector3 direction = Vector3.zero;
 
 		if(Input.GetButton("Vertical")) {
-			direction = Vector3.forward * Input.GetAxisRaw("Vertical");
+			if(movementTimer > 0) {
+				movementTimer -= Time.deltaTime;
+			} else {
+				movementTimer = movementCooldown;
+				direction = Vector3.forward * Input.GetAxisRaw("Vertical");			
+			}
 		} else if(Input.GetButton("Horizontal")) {
-			direction = -Vector3.left * Input.GetAxisRaw("Horizontal");			
+			if(movementTimer > 0) {
+				movementTimer -= Time.deltaTime;
+			} else {
+				movementTimer = movementCooldown;
+				direction = -Vector3.left * Input.GetAxisRaw("Horizontal");
+			}
 		}
 
 		Movement(direction);
@@ -84,10 +98,21 @@ public class CharacterController:MonoBehaviour {
 		Manager.instance.ChangeTurn();
 	}
 
-
-
 	private void Attack() {
-		//Manager.instance.ChangeTurn();
+		if(Input.GetKeyDown(KeyCode.X)) {
+			attacks[0].Attack(transform.position, attackTargetLayer);
+			Manager.instance.ChangeTurn();
+		}
+
+		if(Input.GetKeyDown(KeyCode.Z)) {
+			attacks[1].Attack(transform.position, attackTargetLayer);
+			Manager.instance.ChangeTurn();
+		}
+
+		if(Input.GetKeyDown(KeyCode.C)) {
+			attacks[2].Attack(transform.position, attackTargetLayer);
+			Manager.instance.ChangeTurn();
+		}
 	}
 
 	private void Heal() {

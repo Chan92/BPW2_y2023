@@ -88,6 +88,5 @@ public class EnemyManager : MonoBehaviour {
 		yield return new WaitForSeconds(actionDelay);
 		int random = Random.Range(0, spawnedEnemies.Count);
 		spawnedEnemies[random].GetComponent<EnemyController>().GetAction();
-		Manager.instance.ChangeTurn();
 	}
 }

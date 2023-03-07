@@ -26,8 +26,10 @@ public class Manager : MonoBehaviour {
 
 	public Transform playerObj;
 
-	public int enemyTurnCounter = 0;
+	[SerializeField]
 	private int enemyMaxTurns = 2;
+	[HideInInspector]
+	public int enemyTurnCounter = 0;
 
 	private void Awake() {
 		instance = this;
@@ -50,7 +52,7 @@ public class Manager : MonoBehaviour {
 				break;
 			case GameTurn.Enemy:
 				if(enemyManager.AliveCounter() > 0) {
-					if(enemyTurnCounter < enemyMaxTurns) {
+					if(enemyTurnCounter < enemyMaxTurns-1) {
 						enemyTurnCounter++;
 						enemyManager.EnemyAction();
 					} else {
