@@ -254,8 +254,9 @@ GameObject:
   - component: {fileID: 2864907917164835952}
   - component: {fileID: 6522651921691185980}
   - component: {fileID: 496772198537222083}
-  - component: {fileID: 532269272059190223}
   - component: {fileID: 1437311234}
+  - component: {fileID: 7672524833629321793}
+  - component: {fileID: 532269272059190223}
   - component: {fileID: 1437311229}
   m_Layer: 8
   m_Name: Player
@@ -346,26 +347,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &532269272059190223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4108243046606943363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a731afbcfa58aa44ba68cca4c3f37429, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeonStats: {fileID: 11400000, guid: a81c17a2fbc2c834eaf8e85a7a766331, type: 2}
-  attackTargetLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  attacks:
-  - {fileID: 11400000, guid: b0b42f8629ea6ad4eb586f3248bc8296, type: 2}
-  - {fileID: 11400000, guid: 419b7ad370c210741863e9332309821f, type: 2}
-  - {fileID: 11400000, guid: 37a97323f8b8641488f2c8e24a12f0a8, type: 2}
 --- !u!54 &1437311234
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -382,6 +363,48 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &7672524833629321793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4108243046606943363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f9b961c6089ee3488618c2d14c99002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMaxHp: 100
+  baseAtk: 50
+  baseDef: 0
+  maxHp: 0
+  atk: 0
+  def: 0
+--- !u!114 &532269272059190223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4108243046606943363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a731afbcfa58aa44ba68cca4c3f37429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonStats: {fileID: 11400000, guid: a81c17a2fbc2c834eaf8e85a7a766331, type: 2}
+  movementBlockade:
+    serializedVersion: 2
+    m_Bits: 1664
+  attackTargetLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  movementCooldown: 0.2
+  attacks:
+  - {fileID: 11400000, guid: b0b42f8629ea6ad4eb586f3248bc8296, type: 2}
+  - {fileID: 11400000, guid: 419b7ad370c210741863e9332309821f, type: 2}
+  - {fileID: 11400000, guid: 37a97323f8b8641488f2c8e24a12f0a8, type: 2}
 --- !u!114 &1437311229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,4 +417,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0621545e8276e8d4eb2a34c029b92d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100

@@ -2,27 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Stats))]
 public class Health : MonoBehaviour {
-    [SerializeField]
-    private int maxHealth = 100;
     private int currentHealth;
+	private Stats stats;
 
     private void Start() {
-        currentHealth = maxHealth;
+		stats = gameObject.GetComponent<Stats>();
+        currentHealth = stats.maxHp;
     }
 
     public void GetDamaged(int damage) {
-        currentHealth -= damage;
-        Debug.Log(gameObject.name + " lost " + damage + " health");
+		damage -= stats.def;
 
-        if(currentHealth <= 0) {
-            Debug.Log(gameObject.name + " has died.");
-        }
+		if(damage < 0) {
+			damage = 0;
+			Debug.Log(gameObject.name + " got hit but lost no damage.");
+		} else {
+			currentHealth -= damage;
+			Debug.Log(gameObject.name + " lost " + damage + " health");
+
+			if(currentHealth <= 0) {
+				Debug.Log(gameObject.name + " has died.");
+			}
+		}
     }
 
     public void GetHealed(int amount) {
-        if(amount > maxHealth) {
-            amount = maxHealth;
+        if(amount > stats.maxHp) {
+            amount = stats.maxHp;
         }
 
         currentHealth += amount;

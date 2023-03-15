@@ -22,6 +22,8 @@ public class DungeonManager : MonoBehaviour {
 
 	private void Start() {
 		SpawnPlayer();
+		CheckCurrentRoom(Vector3Int.RoundToInt(Manager.instance.playerObj.position));
+		Manager.instance.ChangeTurn();
 	}
 
 	private void SpawnPlayer() {

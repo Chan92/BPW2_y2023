@@ -9,7 +9,6 @@ public class AttackStats:ScriptableObject {
 	public int maxDmg = 10;
 	public int attackRange = 1;
 	public int aoeHitAmount = 1;
-	public float effectDuration = 2f;
 
 	[HideInInspector]
 	public int dmg;
@@ -21,29 +20,40 @@ public class AttackStats:ScriptableObject {
 
 	[Header("Attack Effects")]
 	public Transform effectPrefab;
+	public float effectDuration = 2f;
 
 	[HideInInspector]
 	public LayerMask target;
 	private List<Vector3Int> attackPositions;
 	private Vector3Int attackerPosition;
+	private Vector3Int previousPosition;
 
-	public void Attack(Vector3 position, LayerMask targetLayer) {
-		Debug.Log("Attacked with: " + name);
-
+	public void Attack(Vector3Int position, LayerMask targetLayer, Stats stats) {
 		attackerPosition = Vector3Int.RoundToInt(position);
 		target = targetLayer;
 
-		GetAttackDamage();
-		GetAttackPositions();
+		GetAttackDamage(stats);
+		GetAttackPositions(attackerPosition);
 		SpawnEffect();
 	}
 
-	public void GetAttackDamage() {
-		dmg = Random.Range(minDmg, maxDmg);
+	//calculate the damage based on the strength of the attacker and the skill itself
+	public void GetAttackDamage(Stats stats) {
+		int min = Mathf.RoundToInt(stats.atk * (minDmg * 0.01f));
+		int max = Mathf.RoundToInt(stats.atk * (maxDmg * 0.01f));
+
+		dmg = Random.Range(min, max);
 	}
 
 	//get the hit patern positions
-	private void GetAttackPositions() {
+	public List<Vector3Int> GetAttackPositions(Vector3Int attackerPos) {
+		//if the hit positions have already been calculated, return the previous calculated list
+		if(attackerPos == previousPosition && attackPositions.Count > 0) {
+			return attackPositions;
+		} else {
+			previousPosition = attackerPos;
+		}
+
 		attackPositions = new List<Vector3Int>();
 		Vector3Int gridPos = Vector3Int.zero;
 
@@ -58,27 +68,43 @@ public class AttackStats:ScriptableObject {
 						continue;					
 					} else {
 						if(straightlineAttack) {
-							attackPositions.Add(attackerPosition + gridPos);
+							attackPositions.Add(attackerPos + gridPos);
 						}
 					}
 
 				//diagnoalLineAttack
 				} else if(Mathf.Abs(gridPos.x) == Mathf.Abs(gridPos.z)) {
 					if(diagnoalLineAttack) {
-						attackPositions.Add(attackerPosition + gridPos);
+						attackPositions.Add(attackerPos + gridPos);
 					}
 
 				//oddSpotsAttack
 				} else {
 					if(oddSpotsAttack) {
-						attackPositions.Add(attackerPosition + gridPos);
+						attackPositions.Add(attackerPos + gridPos);
 					}
 				}
 			}
 		}
+
+		return attackPositions;
 	}
 
-	private void SpawnEffect() {
+	//checks if the attacker is able to hit the target before setting the attack
+	public bool CanHitTarget(Vector3 attackerPos, Vector3 targetPos) {
+		attackerPosition = Vector3Int.RoundToInt(attackerPos);
+		Vector3Int targetPosition = Vector3Int.RoundToInt(targetPos);
+
+		GetAttackPositions(attackerPosition);
+		if(attackPositions.Contains(targetPosition)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	//spawn an effect on the locations of the attack pattern
+	public void SpawnEffect() {
 		if(attackPositions.Count < 1) {
 			return;
 		}

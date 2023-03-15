@@ -17,6 +17,11 @@ public class CharacterController:MonoBehaviour {
 	float movementTimer;
 
 	public AttackStats[] attacks;
+	private Stats stats;
+
+	private void Start() {
+		stats = gameObject.GetComponent<Stats>();
+	}
 
 	private void Update() {
 		if(Manager.instance.gameTurn == Manager.GameTurn.Player) {
@@ -93,24 +98,23 @@ public class CharacterController:MonoBehaviour {
 			
 			Vector3Int position = Vector3Int.RoundToInt(transform.position);
 			DungeonManager.instance.CheckCurrentRoom(position);
+			Manager.instance.ChangeTurn();
 		}
-
-		Manager.instance.ChangeTurn();
 	}
 
 	private void Attack() {
 		if(Input.GetKeyDown(KeyCode.X)) {
-			attacks[0].Attack(transform.position, attackTargetLayer);
+			attacks[0].Attack(Vector3Int.RoundToInt(transform.position), attackTargetLayer, stats);
 			Manager.instance.ChangeTurn();
 		}
 
 		if(Input.GetKeyDown(KeyCode.Z)) {
-			attacks[1].Attack(transform.position, attackTargetLayer);
+			attacks[1].Attack(Vector3Int.RoundToInt(transform.position), attackTargetLayer, stats);
 			Manager.instance.ChangeTurn();
 		}
 
 		if(Input.GetKeyDown(KeyCode.C)) {
-			attacks[2].Attack(transform.position, attackTargetLayer);
+			attacks[2].Attack(Vector3Int.RoundToInt(transform.position), attackTargetLayer, stats);
 			Manager.instance.ChangeTurn();
 		}
 	}

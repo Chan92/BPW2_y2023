@@ -16,12 +16,12 @@ MonoBehaviour:
   maxDmg: 100
   attackRange: 1
   aoeHitAmount: 1
-  effectDuration: 1
-  dmg: 45
+  dmg: 19
   straightlineAttack: 1
   diagnoalLineAttack: 0
   oddSpotsAttack: 0
   effectPrefab: {fileID: 1611608608447418729, guid: 663df2cab5bef524ab980e49ca440a3a, type: 3}
+  effectDuration: 0.5
   target:
     serializedVersion: 2
     m_Bits: 256

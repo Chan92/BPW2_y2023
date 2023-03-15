@@ -18,33 +18,25 @@ public class EnemyController : MonoBehaviour {
 	[SerializeField]
 	private float distanceOffset = 0.5f;
 
+	private Stats stats;
 
 	private void Start() {
 		player = Transform.FindObjectOfType<CharacterController>().transform;
+		stats = gameObject.GetComponent<Stats>();
 	}	
 
 	public void GetAction() {
 		//choose a random attack from the avaible attacks
 		int randomAttackType = Random.Range(0, attacks.Length);
 
-		if(InAttackRange(randomAttackType)) {
+		if(attacks[randomAttackType].CanHitTarget(transform.position, player.position)) {
 			Attack(randomAttackType);
 		} else {
 			Movement();
 		}
 
+		print("change turn, cur counter: " + Manager.instance.enemyTurnCounter);
 		Manager.instance.ChangeTurn();
-	}
-
-	//checks if the attack can hit the target
-	//TODO: fix attack patern check instead of only distance check
-	private bool InAttackRange(int attackType) {
-		float distance = Vector3.Distance(transform.position, player.position);
-		if(distance - distanceOffset <= attacks[attackType].attackRange) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	private void Movement() {
@@ -64,7 +56,7 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
-	private void Attack(int attackType) {
-		attacks[attackType].Attack(transform.position, attackTargetLayer);
+	private void Attack(int attackType) {		
+		attacks[attackType].Attack(Vector3Int.RoundToInt(transform.position), attackTargetLayer, stats);
 	}	
 }
