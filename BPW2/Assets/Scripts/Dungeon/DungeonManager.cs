@@ -15,15 +15,29 @@ public class DungeonManager : MonoBehaviour {
 	private int maxSpawnRerol = 5;
 
 	private float spawnOffset = 0.5f;
+	
+	[HideInInspector]
+	public MarkTile[] groundTiles;
 
 	private void Awake() {
 		instance = this;
 	}
 
 	private void Start() {
+		groundTiles = FindObjectsOfType<MarkTile>();
 		SpawnPlayer();
 		CheckCurrentRoom(Vector3Int.RoundToInt(Manager.instance.playerObj.position));
 		Manager.instance.ChangeTurn();
+	}
+
+	private void OnEnable() {
+		SkillHover.onPointerEnter += SetTileMarked;
+		SkillHover.onPointerExit += SetTileNormal;
+	}
+
+	private void OnDisable() {
+		SkillHover.onPointerEnter -= SetTileMarked;
+		SkillHover.onPointerExit -= SetTileNormal;
 	}
 
 	private void SpawnPlayer() {
@@ -86,6 +100,27 @@ public class DungeonManager : MonoBehaviour {
 			}
 
 			dgnGen.allHallWalls[i].position = pos;
+		}
+	}
+
+	//calculate which tiles should appear marked 
+	private void SetTileMarked(GameObject obj, int attackId) {
+		Vector3Int pos = Vector3Int.RoundToInt(Manager.instance.playerObj.position);
+		AttackStats atkStats = Manager.instance.playerObj.GetComponent<CharacterController>().attacks[attackId];
+		List<Vector3Int> attackPositions = atkStats.GetAttackPositions(pos);
+
+		for(int i = 0; i < groundTiles.Length; i++) {
+			Vector3Int groundPos = Vector3Int.RoundToInt(groundTiles[i].transform.position);
+			if(attackPositions.Contains(groundPos)) {
+				groundTiles[i].ChangeMaterial(true);
+			}
+		}
+	}
+
+	//return the tiles back to normal
+	private void SetTileNormal(GameObject obj) {
+		for(int i = 0; i < groundTiles.Length; i++) {			
+			groundTiles[i].ChangeMaterial(false);
 		}
 	}
 }
