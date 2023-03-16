@@ -23,7 +23,15 @@ public class EnemyController : MonoBehaviour {
 	private void Start() {
 		player = Transform.FindObjectOfType<CharacterController>().transform;
 		stats = gameObject.GetComponent<Stats>();
-	}	
+	}
+
+	private void OnEnable() {
+		gameObject.GetComponent<Health>().onDeath += Death;
+	}
+
+	private void OnDisable() {
+		gameObject.GetComponent<Health>().onDeath -= Death;
+	}
 
 	public void GetAction() {
 		//choose a random attack from the avaible attacks
@@ -58,5 +66,11 @@ public class EnemyController : MonoBehaviour {
 
 	private void Attack(int attackType) {		
 		attacks[attackType].Attack(Vector3Int.RoundToInt(transform.position), attackTargetLayer, stats);
-	}	
+	}
+
+	private void Death(GameObject obj) {
+		print("~~~~~~ENEMY died~~~**");
+		//DROP ITEMS
+		EnemyManager.instance.DespawnEnemy(transform);
+	}
 }

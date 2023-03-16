@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SkillHover:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class SkillHover:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 	public static event System.Action<GameObject, int> onPointerEnter;
-	public static event System.Action<GameObject> onPointerExit;
+	public static event System.Action<int> onPointerExit;
+	public static event System.Action<int> onPointerClick;
 
 	[SerializeField]
 	private int attackId;
@@ -16,6 +17,10 @@ public class SkillHover:MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	}
 
 	public void OnPointerExit(PointerEventData eventData) {
-		onPointerExit?.Invoke(gameObject);
+		onPointerExit?.Invoke(attackId);
+	}
+
+	public void OnPointerClick(PointerEventData eventData) {
+		onPointerClick?.Invoke(attackId);
 	}
 }

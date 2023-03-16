@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour {
+	public static EnemyManager instance;
+
 	[SerializeField]
 	private DungeonGenerator dgnGen;
 
@@ -25,6 +27,10 @@ public class EnemyManager : MonoBehaviour {
 
 	[SerializeField]
 	private float actionDelay = 0.4f;
+
+	private void Awake() {
+		instance = this;
+	}
 
 	private void Start() {
 		CreateEnemyPool(poolSize);
@@ -86,7 +92,9 @@ public class EnemyManager : MonoBehaviour {
 
 	private IEnumerator ActionDelay() {
 		yield return new WaitForSeconds(actionDelay);
-		int random = Random.Range(0, spawnedEnemies.Count);
-		spawnedEnemies[random].GetComponent<EnemyController>().GetAction();
+		if(spawnedEnemies.Count > 0) {
+			int random = Random.Range(0, spawnedEnemies.Count);
+			spawnedEnemies[random].GetComponent<EnemyController>().GetAction();
+		}
 	}
 }

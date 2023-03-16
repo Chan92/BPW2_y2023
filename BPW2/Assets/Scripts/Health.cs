@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Stats))]
 public class Health : MonoBehaviour {
-    private int currentHealth;
+	public event System.Action<GameObject> onDeath;
+	public event System.Action<float> onHealthChanged;
+	private int currentHealth;
 	private Stats stats;
 
     private void Start() {
@@ -17,14 +20,16 @@ public class Health : MonoBehaviour {
 
 		if(damage < 0) {
 			damage = 0;
-			Debug.Log(gameObject.name + " got hit but lost no damage.");
 		} else {
 			currentHealth -= damage;
 			Debug.Log(gameObject.name + " lost " + damage + " health");
 
 			if(currentHealth <= 0) {
-				Debug.Log(gameObject.name + " has died.");
+				currentHealth = 0;
+				onDeath?.Invoke(gameObject);
 			}
+
+			onHealthChanged?.Invoke(currentHealth);
 		}
     }
 
@@ -34,5 +39,6 @@ public class Health : MonoBehaviour {
         }
 
         currentHealth += amount;
-    }
+		onHealthChanged?.Invoke(currentHealth);
+	}
 }

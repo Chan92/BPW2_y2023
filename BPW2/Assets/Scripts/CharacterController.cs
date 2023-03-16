@@ -23,10 +23,19 @@ public class CharacterController:MonoBehaviour {
 		stats = gameObject.GetComponent<Stats>();
 	}
 
+	private void OnEnable() {
+		gameObject.GetComponent<Health>().onDeath += Death;
+		SkillHover.onPointerClick += Attack;
+	}
+
+	private void OnDisable() {
+		gameObject.GetComponent<Health>().onDeath -= Death;
+		SkillHover.onPointerClick -= Attack;
+	}
+
 	private void Update() {
 		if(Manager.instance.gameTurn == Manager.GameTurn.Player) {
 			InBattleMovement();
-			Attack();
 			Heal();
 		} else if(Manager.instance.gameTurn == Manager.GameTurn.OutOfCombat) {
 			OutBattleMovement();
@@ -102,24 +111,23 @@ public class CharacterController:MonoBehaviour {
 		}
 	}
 
-	private void Attack() {
-		if(Input.GetKeyDown(KeyCode.X)) {
-			attacks[0].Attack(Vector3Int.RoundToInt(transform.position), attackTargetLayer, stats);
-			Manager.instance.ChangeTurn();
-		}
+	private void Attack(int attackId) {
+		if(Manager.instance.gameTurn == Manager.GameTurn.Player) {
+			if(attackId >= attacks.Length) {
+				attackId = attacks.Length - 1;
+			}
 
-		if(Input.GetKeyDown(KeyCode.Z)) {
-			attacks[1].Attack(Vector3Int.RoundToInt(transform.position), attackTargetLayer, stats);
-			Manager.instance.ChangeTurn();
-		}
-
-		if(Input.GetKeyDown(KeyCode.C)) {
-			attacks[2].Attack(Vector3Int.RoundToInt(transform.position), attackTargetLayer, stats);
+			attacks[attackId].Attack(Vector3Int.RoundToInt(transform.position), attackTargetLayer, stats);
 			Manager.instance.ChangeTurn();
 		}
 	}
 
 	private void Heal() {
 		//Manager.instance.ChangeTurn();
+	}
+
+	private void Death(GameObject obj) {
+		print("~~~~~~Player died~~~**");
+		//GAMEOVER
 	}
 }

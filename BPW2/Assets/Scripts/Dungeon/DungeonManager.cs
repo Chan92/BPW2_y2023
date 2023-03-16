@@ -33,11 +33,13 @@ public class DungeonManager : MonoBehaviour {
 	private void OnEnable() {
 		SkillHover.onPointerEnter += SetTileMarked;
 		SkillHover.onPointerExit += SetTileNormal;
+		SkillHover.onPointerClick += SetTileNormal;
 	}
 
 	private void OnDisable() {
 		SkillHover.onPointerEnter -= SetTileMarked;
 		SkillHover.onPointerExit -= SetTileNormal;
+		SkillHover.onPointerClick -= SetTileNormal;
 	}
 
 	private void SpawnPlayer() {
@@ -118,7 +120,7 @@ public class DungeonManager : MonoBehaviour {
 	}
 
 	//return the tiles back to normal
-	private void SetTileNormal(GameObject obj) {
+	private void SetTileNormal(int num) {
 		for(int i = 0; i < groundTiles.Length; i++) {			
 			groundTiles[i].ChangeMaterial(false);
 		}
