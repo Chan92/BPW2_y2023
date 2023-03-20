@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175370594d311f94593f578f4503aa3a, type: 3}
   m_Name: DarkMagicAttack
   m_EditorClassIdentifier: 
-  minDmg: 1
-  maxDmg: 10
+  minDmg: 80
+  maxDmg: 100
   attackRange: 2
-  aoeHitAmount: 1
-  dmg: 7
+  dmg: 99
   straightlineAttack: 1
   diagnoalLineAttack: 1
   oddSpotsAttack: 1

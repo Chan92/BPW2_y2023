@@ -32,6 +32,7 @@ public class EnemyManager : MonoBehaviour {
 
 	[SerializeField]
 	private float actionDelay = 0.4f;
+	private int lastEnemyId = -1;
 
 	private void Awake() {
 		instance = this;
@@ -97,14 +98,45 @@ public class EnemyManager : MonoBehaviour {
 
 		enemy.parent = poolParent;
 		enemy.gameObject.SetActive(false);
-		AliveCounter();
+
+
+		if(AliveCounter() <= 0) {
+			Manager.instance.dungeonManager.ToggleHallWalls(true);
+			Manager.instance.Invoke("ChangeTurn", 0f);
+		}
 	}
+
+	
 
 	private IEnumerator ActionDelay() {
 		yield return new WaitForSeconds(actionDelay);
 		if(spawnedEnemies.Count > 0) {
 			int random = Random.Range(0, spawnedEnemies.Count);
+			StartCoroutine(SetActiveMark(random));
+
 			spawnedEnemies[random].GetComponent<EnemyController>().GetAction();
+		}
+	}
+
+	public IEnumerator SetActiveMark(int currentId) {
+		//currentID is -1 when its not the enemies turn
+		if(currentId < 0) {
+			for(int i = 0; i < spawnedEnemies.Count; i++) {
+				spawnedEnemies[i].GetComponent<EnemyController>().enemyInfo.SetActiveTurn(false);
+			}	
+		} else {
+			yield return new WaitForSeconds(0);
+
+			if(lastEnemyId == currentId) {
+				spawnedEnemies[currentId].GetComponent<EnemyController>().enemyInfo.SetActiveTurn(true);
+			} else {
+				if(lastEnemyId >= 0 && lastEnemyId < spawnedEnemies.Count) {
+					spawnedEnemies[lastEnemyId].GetComponent<EnemyController>().enemyInfo.SetActiveTurn(false);
+				}
+
+				spawnedEnemies[currentId].GetComponent<EnemyController>().enemyInfo.SetActiveTurn(true);
+				lastEnemyId = currentId;
+			}
 		}
 	}
 }

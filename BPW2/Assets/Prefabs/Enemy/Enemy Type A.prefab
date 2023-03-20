@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9b961c6089ee3488618c2d14c99002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMaxHp: 50
+  baseMaxHp: 100
   baseAtk: 10
   baseDef: 0
   maxHp: 0
@@ -171,7 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0621545e8276e8d4eb2a34c029b92d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 1710195157367540512}
 --- !u!1 &7322716579145601645
 GameObject:
   m_ObjectHideFlags: 0

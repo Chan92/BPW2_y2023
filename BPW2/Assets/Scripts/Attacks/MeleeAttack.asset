@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175370594d311f94593f578f4503aa3a, type: 3}
   m_Name: MeleeAttack
   m_EditorClassIdentifier: 
-  minDmg: 10
-  maxDmg: 100
+  minDmg: 110
+  maxDmg: 120
   attackRange: 1
-  aoeHitAmount: 1
-  dmg: 19
+  dmg: 92
   straightlineAttack: 1
   diagnoalLineAttack: 0
   oddSpotsAttack: 0
@@ -24,4 +23,4 @@ MonoBehaviour:
   effectDuration: 0.5
   target:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512

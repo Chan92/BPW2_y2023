@@ -53,7 +53,6 @@ public class DungeonManager : MonoBehaviour {
 	private void SpawnEnemies(int roomId) {
 		int size = dgnGen.allRooms[roomId].roomSize;
 		int amount = Mathf.CeilToInt(Random.Range(1, size * 0.01f));
-		print("Spawn " + amount + " enemies.");
 
 		Vector3[] positions = new Vector3[amount];
 		int currentRerol = 0;

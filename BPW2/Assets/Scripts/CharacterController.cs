@@ -107,7 +107,7 @@ public class CharacterController:MonoBehaviour {
 			
 			Vector3Int position = Vector3Int.RoundToInt(transform.position);
 			DungeonManager.instance.CheckCurrentRoom(position);
-			Manager.instance.ChangeTurn();
+			Manager.instance.Invoke("ChangeTurn", 0f);
 		}
 	}
 
@@ -118,7 +118,7 @@ public class CharacterController:MonoBehaviour {
 			}
 
 			attacks[attackId].Attack(Vector3Int.RoundToInt(transform.position), attackTargetLayer, stats);
-			Manager.instance.ChangeTurn();
+			Manager.instance.Invoke("ChangeTurn", attacks[attackId].effectDuration);
 		}
 	}
 

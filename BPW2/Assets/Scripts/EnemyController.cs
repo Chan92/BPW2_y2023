@@ -47,8 +47,6 @@ public class EnemyController : MonoBehaviour {
 		} else {
 			Movement();
 		}
-
-		Manager.instance.ChangeTurn();
 	}
 
 	private void Movement() {
@@ -67,10 +65,13 @@ public class EnemyController : MonoBehaviour {
 			transform.position += moveTo * dungeonStats.TileSize;
 			enemyInfo.SetInfo(transform.position);
 		}
+
+		Manager.instance.Invoke("ChangeTurn", 0f);
 	}
 
 	private void Attack(int attackType) {		
 		attacks[attackType].Attack(Vector3Int.RoundToInt(transform.position), attackTargetLayer, stats);
+		Manager.instance.Invoke("ChangeTurn", attacks[attackType].effectDuration);
 	}
 
 	private void Death(GameObject obj) {

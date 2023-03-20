@@ -26,6 +26,8 @@ public class Manager : MonoBehaviour {
 
 	public Transform playerObj;
 
+	public static event System.Action<bool> isPlayerTurn;
+
 	[SerializeField]
 	private int enemyMaxTurns = 2;
 	[HideInInspector]
@@ -41,6 +43,8 @@ public class Manager : MonoBehaviour {
 				if(enemyManager.AliveCounter() > 0) {
 					gameTurn = GameTurn.Player;
 				}
+
+				CheckNewTurns();
 				break;
 			case GameTurn.Player:
 				if(enemyManager.AliveCounter() > 0) {
@@ -49,6 +53,8 @@ public class Manager : MonoBehaviour {
 				} else {
 					gameTurn = GameTurn.OutOfCombat;
 				}
+
+				CheckNewTurns();
 				break;
 			case GameTurn.Enemy:
 				if(enemyManager.AliveCounter() > 0) {
@@ -62,9 +68,26 @@ public class Manager : MonoBehaviour {
 				} else {
 					gameTurn = GameTurn.OutOfCombat;
 				}
+
+				CheckNewTurns();
 				break;
 			default:
 				Debug.Log("Something went wrong?");
+				break;
+		}
+	}
+
+	private void CheckNewTurns() {
+		switch(gameTurn) {
+			case GameTurn.Player:
+				isPlayerTurn?.Invoke(true);
+				StartCoroutine(enemyManager.SetActiveMark(-1));
+				break;
+			case GameTurn.Enemy:
+				isPlayerTurn?.Invoke(false);
+				break;
+			case GameTurn.OutOfCombat:
+				isPlayerTurn?.Invoke(true);
 				break;
 		}
 	}
