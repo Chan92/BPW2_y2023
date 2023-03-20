@@ -308,6 +308,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   distanceOffset: 0.5
+  enemyInfo: {fileID: 0}
 --- !u!114 &5789506409734789771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,3 +339,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0621545e8276e8d4eb2a34c029b92d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 5789506409734789771}

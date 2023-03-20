@@ -21,6 +21,11 @@ public class EnemyManager : MonoBehaviour {
 	private Transform[] enemyPrefabs;
 
 	[SerializeField]
+	private Transform enemyInfoPrefab;
+	[SerializeField]
+	private Transform enemyInfoCanvas;
+
+	[SerializeField]
 	private int poolSize = 10;
 	[SerializeField]
 	private int spawnChanceTypeB = 35;
@@ -60,6 +65,11 @@ public class EnemyManager : MonoBehaviour {
 
 			enemyPool.Add(newEnemy);
 			newEnemy.parent = poolParent;
+
+			Transform newInfoWindow =  Instantiate(enemyInfoPrefab, enemyInfoCanvas);
+			newInfoWindow.GetComponent<EnemyInfo>().AssignInfo(newEnemy);
+			newEnemy.GetComponent<EnemyController>().enemyInfo = newInfoWindow.GetComponent<EnemyInfo>();
+
 			newEnemy.gameObject.SetActive(false);
 		}
 		

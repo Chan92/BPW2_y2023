@@ -20,16 +20,21 @@ public class EnemyController : MonoBehaviour {
 
 	private Stats stats;
 
+	[HideInInspector]
+	public EnemyInfo enemyInfo;
+
 	private void Start() {
 		player = Transform.FindObjectOfType<CharacterController>().transform;
 		stats = gameObject.GetComponent<Stats>();
 	}
 
 	private void OnEnable() {
+		if(enemyInfo) enemyInfo.EnableInfo(transform.position);
 		gameObject.GetComponent<Health>().onDeath += Death;
 	}
 
 	private void OnDisable() {
+		if(enemyInfo) enemyInfo.DisableInfo();
 		gameObject.GetComponent<Health>().onDeath -= Death;
 	}
 
@@ -43,7 +48,6 @@ public class EnemyController : MonoBehaviour {
 			Movement();
 		}
 
-		print("change turn, cur counter: " + Manager.instance.enemyTurnCounter);
 		Manager.instance.ChangeTurn();
 	}
 
@@ -61,6 +65,7 @@ public class EnemyController : MonoBehaviour {
 
 		if(!Physics.Raycast(transform.position, moveTo, dungeonStats.TileSize, movementBlockade)) {
 			transform.position += moveTo * dungeonStats.TileSize;
+			enemyInfo.SetInfo(transform.position);
 		}
 	}
 

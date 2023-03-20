@@ -12,16 +12,16 @@ public class PlayerUI : MonoBehaviour {
 	[SerializeField]
 	private Image healthFill;
 
-	private void Start() {
+	private void Awake() {
 		playerStats = player.GetComponent<Stats>();
 	}
 
 	private void OnEnable() {
-		player.GetComponent<Health>().onHealthChanged += HealthChanged;
+		if(player) player.GetComponent<Health>().onHealthChanged += HealthChanged;
 	}
 
 	private void OnDisable() {
-		player.GetComponent<Health>().onHealthChanged -= HealthChanged;
+		if(player) player.GetComponent<Health>().onHealthChanged -= HealthChanged;
 	}
 
 	//update hp bar when the player takes damage or gets healed

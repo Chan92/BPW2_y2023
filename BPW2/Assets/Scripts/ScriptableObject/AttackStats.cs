@@ -8,7 +8,6 @@ public class AttackStats:ScriptableObject {
 	public int minDmg = 1;
 	public int maxDmg = 10;
 	public int attackRange = 1;
-	public int aoeHitAmount = 1;
 
 	[HideInInspector]
 	public int dmg;

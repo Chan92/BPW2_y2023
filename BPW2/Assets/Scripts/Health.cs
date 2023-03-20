@@ -10,9 +10,12 @@ public class Health : MonoBehaviour {
 	private int currentHealth;
 	private Stats stats;
 
-    private void Start() {
+	private void Awake() {
 		stats = gameObject.GetComponent<Stats>();
-        currentHealth = stats.maxHp;
+	}
+
+	private void Start() {
+		GetHealed(stats.maxHp);
     }
 
     public void GetDamaged(int damage) {
@@ -22,7 +25,6 @@ public class Health : MonoBehaviour {
 			damage = 0;
 		} else {
 			currentHealth -= damage;
-			Debug.Log(gameObject.name + " lost " + damage + " health");
 
 			if(currentHealth <= 0) {
 				currentHealth = 0;
