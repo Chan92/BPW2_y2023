@@ -19,6 +19,9 @@ public class DungeonManager : MonoBehaviour {
 	[HideInInspector]
 	public MarkTile[] groundTiles;
 
+	[HideInInspector]
+	public int unvisitedRooms;
+
 	private void Awake() {
 		instance = this;
 	}
@@ -26,6 +29,7 @@ public class DungeonManager : MonoBehaviour {
 	private void Start() {
 		groundTiles = FindObjectsOfType<MarkTile>();
 		SpawnPlayer();
+		unvisitedRooms = dgnGen.allRooms.Count;
 		CheckCurrentRoom(Vector3Int.RoundToInt(Manager.instance.playerObj.position));
 		Manager.instance.ChangeTurn();
 	}
@@ -85,6 +89,7 @@ public class DungeonManager : MonoBehaviour {
 			if(roomId >= 0 && !dgnGen.allRooms[roomId].visited) {
 				SpawnEnemies(roomId);
 				dgnGen.allRooms[roomId].visited = true;
+				unvisitedRooms--;
 				ToggleHallWalls(false);
 			}
 		}

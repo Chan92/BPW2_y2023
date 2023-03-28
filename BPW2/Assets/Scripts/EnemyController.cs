@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class EnemyController : MonoBehaviour {
+	public EnemyManager.EnemyType enemyType;
+
 	[SerializeField]
 	private DungeonStats dungeonStats;
 	[SerializeField]
@@ -16,7 +19,9 @@ public class EnemyController : MonoBehaviour {
 	private LayerMask attackTargetLayer;
 
 	[SerializeField]
-	private float distanceOffset = 0.5f;
+	private GameObject[] droplist;
+	[SerializeField]
+	private int dropChance = 30;
 
 	private Stats stats;
 
@@ -75,8 +80,21 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	private void Death(GameObject obj) {
-		print("~~~~~~ENEMY died~~~**");
-		//DROP ITEMS
+		Drops();
 		EnemyManager.instance.DespawnEnemy(transform);
+	}
+
+	private void Drops() {
+		if(droplist.Length < 1) {
+			return;
+		}
+
+		int randomChance = Random.Range(0, 100);
+
+		if(randomChance <= dropChance) {
+			int randomDrop = Random.Range(0, droplist.Length);
+
+			Instantiate(droplist[randomDrop], transform.position, Quaternion.identity);
+		}
 	}
 }

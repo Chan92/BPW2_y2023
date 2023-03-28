@@ -36,11 +36,12 @@ public class Health : MonoBehaviour {
     }
 
     public void GetHealed(int amount) {
-        if(amount > stats.maxHp) {
-            amount = stats.maxHp;
-        }
+		if(currentHealth + amount >= stats.maxHp) {
+			currentHealth = stats.maxHp;
+		} else {
+			currentHealth += amount;
+		}
 
-        currentHealth += amount;
 		onHealthChanged?.Invoke(currentHealth);
 	}
 }

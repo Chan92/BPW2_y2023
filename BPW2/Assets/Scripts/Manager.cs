@@ -28,6 +28,9 @@ public class Manager : MonoBehaviour {
 
 	public static event System.Action<bool> isPlayerTurn;
 
+	public GameObject winScreen;
+	public GameObject loseScreen;
+
 	[SerializeField]
 	private int enemyMaxTurns = 2;
 	[HideInInspector]
@@ -35,6 +38,8 @@ public class Manager : MonoBehaviour {
 
 	private void Awake() {
 		instance = this;
+		winScreen.SetActive(false);
+		loseScreen.SetActive(false);
 	}
 
 	public void ChangeTurn() {
@@ -88,6 +93,11 @@ public class Manager : MonoBehaviour {
 				break;
 			case GameTurn.OutOfCombat:
 				isPlayerTurn?.Invoke(true);
+
+				if(dungeonManager.unvisitedRooms <= 0) {
+					winScreen.SetActive(true);
+				}
+
 				break;
 		}
 	}

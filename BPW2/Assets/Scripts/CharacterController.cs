@@ -127,7 +127,6 @@ public class CharacterController:MonoBehaviour {
 	}
 
 	private void Death(GameObject obj) {
-		print("~~~~~~Player died~~~**");
-		//GAMEOVER
+		Manager.instance.loseScreen.SetActive(true);
 	}
 }
