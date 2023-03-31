@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class EnemyController : MonoBehaviour {
-	public EnemyManager.EnemyType enemyType;
-
 	[SerializeField]
 	private DungeonStats dungeonStats;
 	[SerializeField]

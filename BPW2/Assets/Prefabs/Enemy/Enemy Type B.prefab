@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5682015800653930129}
   - component: {fileID: 4245029324122051879}
   - component: {fileID: 5130652748494775772}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25de76ed01853442a10e25dd7ec8251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 1
   dungeonStats: {fileID: 11400000, guid: a81c17a2fbc2c834eaf8e85a7a766331, type: 2}
   attacks:
   - {fileID: 11400000, guid: b0b42f8629ea6ad4eb586f3248bc8296, type: 2}
@@ -309,9 +308,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   droplist:
-  - {fileID: 1654780442705723249, guid: 96afd72584cec8747b915c6af3120b54, type: 3}
-  - {fileID: 6795156675342557142, guid: 93fd3e431c74b4f47825bb3e9b4c5b9c, type: 3}
   - {fileID: 6913633620128179815, guid: 23f3b10fd6ada6c4594044998ea7051a, type: 3}
+  - {fileID: 6795156675342557142, guid: 93fd3e431c74b4f47825bb3e9b4c5b9c, type: 3}
+  - {fileID: 6913633620128179815, guid: 8d316138367adfb448b6a4b414ff8dab, type: 3}
   dropChance: 40
   enemyInfo: {fileID: 0}
 --- !u!114 &5789506409734789771

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1654780442705723254}
   - component: {fileID: 1654780442705723255}
   - component: {fileID: 1654780442705723248}
-  m_Layer: 0
+  - component: {fileID: -4676202791771811487}
+  m_Layer: 12
   m_Name: Potion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,9 +93,29 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654780442705723249}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &-4676202791771811487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654780442705723249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 717dc8421924c6e40b71b021a09645f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropType: 0
+  icon: {fileID: 21300000, guid: aa430f39416d99d43b64a7f12fd88dfa, type: 3}
+  potionType: 1
+  stats:
+  - type: 0
+    fixedValue: 50
+    minValue: 50
+    maxValue: 50

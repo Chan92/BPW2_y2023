@@ -26,20 +26,20 @@ public class CharacterController:MonoBehaviour {
 	private void OnEnable() {
 		gameObject.GetComponent<Health>().onDeath += Death;
 		SkillHover.onPointerClick += Attack;
+		PotionsQuickslot.onPointerClick += Heal;
 	}
 
 	private void OnDisable() {
 		gameObject.GetComponent<Health>().onDeath -= Death;
 		SkillHover.onPointerClick -= Attack;
+		PotionsQuickslot.onPointerClick -= Heal;
 	}
 
 	private void Update() {
 		if(Manager.instance.gameTurn == Manager.GameTurn.Player) {
 			InBattleMovement();
-			Heal();
 		} else if(Manager.instance.gameTurn == Manager.GameTurn.OutOfCombat) {
 			OutBattleMovement();
-			Heal();
 		}
 
 		DebuggingKillAll();
@@ -122,8 +122,8 @@ public class CharacterController:MonoBehaviour {
 		}
 	}
 
-	private void Heal() {
-		//Manager.instance.ChangeTurn();
+	private void Heal(int value) {
+		Manager.instance.ChangeTurn();
 	}
 
 	private void Death(GameObject obj) {

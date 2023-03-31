@@ -130,7 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25de76ed01853442a10e25dd7ec8251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
   dungeonStats: {fileID: 11400000, guid: a81c17a2fbc2c834eaf8e85a7a766331, type: 2}
   attacks:
   - {fileID: 11400000, guid: 419b7ad370c210741863e9332309821f, type: 2}
@@ -144,7 +143,7 @@ MonoBehaviour:
   - {fileID: 1654780442705723249, guid: 96afd72584cec8747b915c6af3120b54, type: 3}
   - {fileID: 1654780442705723249, guid: 96afd72584cec8747b915c6af3120b54, type: 3}
   - {fileID: 6913633620128179815, guid: 23f3b10fd6ada6c4594044998ea7051a, type: 3}
-  - {fileID: 6913633620128179815, guid: 23f3b10fd6ada6c4594044998ea7051a, type: 3}
+  - {fileID: 6913633620128179815, guid: 8d316138367adfb448b6a4b414ff8dab, type: 3}
   - {fileID: 1654780442705723249, guid: 96afd72584cec8747b915c6af3120b54, type: 3}
   dropChance: 60
   enemyInfo: {fileID: 0}

@@ -44,4 +44,12 @@ public class Health : MonoBehaviour {
 
 		onHealthChanged?.Invoke(currentHealth);
 	}
+
+	public void CheckStatChanges() {
+		if(currentHealth > stats.maxHp) {
+			currentHealth = stats.maxHp;
+		}
+
+		onHealthChanged?.Invoke(currentHealth);
+	}
 }
